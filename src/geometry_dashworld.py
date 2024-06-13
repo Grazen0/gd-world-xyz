@@ -35,7 +35,7 @@ def create_world() -> World:
 def draw_world(world: World):
     # Piso
     for i in range(ROWS - FLOOR_HEIGHT, ROWS):
-        world[i] = [4] * COLUMNS
+        world[i] = [COLOR_LIGHTWHITE] * COLUMNS
 
     # Poste
     LAMP_TOP_EXT = 3
@@ -56,7 +56,7 @@ def draw_world(world: World):
 
             world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J + l] \
                 = COLOR_YELLOW
-            world[LAMP_TOP_BASE - 2*LAMP_TOP_EXT + 1 + k][LAMP_J - l] \
+            world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J - l] \
                 = COLOR_YELLOW
 
     # Jugador
