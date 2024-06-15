@@ -43,12 +43,15 @@ def draw_world(world: World):
     LAMP_J = 24
     LAMP_TOP_BASE = LAMP_I - 10
 
+    # Laterales de la base inferior del poste
     world[LAMP_I][LAMP_J - 1] = COLOR_BLACK
     world[LAMP_I][LAMP_J + 1] = COLOR_BLACK
-
+    
+    # Columna central del poste
     for k in range(LAMP_TOP_BASE + 1, LAMP_I + 1):
         world[k][LAMP_J] = COLOR_BLACK
 
+    # Chupetin :v
     for k in range(0, LAMP_TOP_EXT):
         for l in range(0, k + 2):
             world[LAMP_TOP_BASE - k][LAMP_J + l] = COLOR_YELLOW
@@ -58,7 +61,30 @@ def draw_world(world: World):
                 = COLOR_YELLOW
             world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J - l] \
                 = COLOR_YELLOW
+    # Pincho 
+    # Filas "únicas" = 8
+    STAIRS = 8
+    # Logitud inicial de la base del pincho
+    SPIK_INF_BASE = 15
+    # Posición en Y donde inicia
+    POS_I_INIC = ROWS - FLOOR_HEIGHT - 1
+    # Posiciión en X donde inicia
+    POS_J_INIC = 30
 
+    # For para iterar sobre la cantidad de escaleras/escalones
+    for fila in range(0, STAIRS):
+        # For para iterar sobre las columnas
+        for columna in range(0, SPIK_INF_BASE):
+                # Este for es para que se imprima otra fila :v
+                for i in range(0, 2):
+                    if fila == columna or (fila + columna == 14):
+                        world[POS_I_INIC - 2*fila - i][POS_J_INIC+columna] \
+                            = COLOR_YELLOW
+                    else:
+                        if (columna > fila and columna < 8) or (fila + columna < 14 and columna >= 8):
+                            world[POS_I_INIC - 2*fila - i][POS_J_INIC+columna] \
+                                = COLOR_BLACK   
+                            
     # Jugador
     draw_player(world)
 
