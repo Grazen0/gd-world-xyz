@@ -1,16 +1,17 @@
 from colorama import Back
 
-type World = list[list[int]]
+# type World = list[list[int]]
 
 ROWS = 50
 COLUMNS = 120
 
-COLOR_BG = 0
-COLOR_BLACK = 1
-COLOR_GREEN = 2
-COLOR_LIGHTBLUE = 3
-COLOR_LIGHTWHITE = 4
-COLOR_YELLOW = 5
+COLOR_NONE = 0
+COLOR_BG = 1
+COLOR_BLACK = 2
+COLOR_GREEN = 3
+COLOR_LIGHTBLUE = 4
+COLOR_LIGHTWHITE = 5
+COLOR_YELLOW = 6
 
 COLOR_CODES = {
     COLOR_BG: Back.WHITE,
@@ -28,11 +29,19 @@ PLAYER_I = ROWS - FLOOR_HEIGHT - PLAYER_SIZE
 PLAYER_J = 1
 
 
-def create_world() -> World:
+def create_world() -> list[list[int]]:
     return [[COLOR_BG] * COLUMNS for _ in range(0, ROWS)]
 
 
-def draw_world(world: World):
+def player_sprite(size: int):
+    pass
+
+
+def spike_sprite() -> list[list[int]]:
+    pass
+
+
+def draw_world(world: list[list[int]]):
     # Piso
     for i in range(ROWS - FLOOR_HEIGHT, ROWS):
         world[i] = [COLOR_LIGHTWHITE] * COLUMNS
@@ -54,13 +63,14 @@ def draw_world(world: World):
     # Chupetin :v
     for k in range(0, LAMP_TOP_EXT):
         for l in range(0, k + 2):
+            # Mitad de abajo
             world[LAMP_TOP_BASE - k][LAMP_J + l] = COLOR_YELLOW
             world[LAMP_TOP_BASE - k][LAMP_J - l] = COLOR_YELLOW
 
-            world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J + l] \
-                = COLOR_YELLOW
-            world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J - l] \
-                = COLOR_YELLOW
+            # Mitad de arriba
+            world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J + l] = COLOR_YELLOW
+            world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J - l] = COLOR_YELLOW
+
     # Pincho 
     # Filas "únicas" = 8
     STAIRS = 8
@@ -78,18 +88,12 @@ def draw_world(world: World):
                 # Este for es para que se imprima otra fila :v
                 for i in range(0, 2):
                     if fila == columna or (fila + columna == 14):
-                        world[POS_I_INIC - 2*fila - i][POS_J_INIC+columna] \
-                            = COLOR_YELLOW
-                    else:
-                        if (columna > fila and columna < 8) or (fila + columna < 14 and columna >= 8):
-                            world[POS_I_INIC - 2*fila - i][POS_J_INIC+columna] \
-                                = COLOR_BLACK   
-                            
-    # Jugador
-    draw_player(world)
+                        world[POS_I_INIC - 2*fila - i][POS_J_INIC+columna] = COLOR_YELLOW
+                    elif (columna > fila and columna < 8) or (fila + columna < 14 and columna >= 8):
+                        world[POS_I_INIC - 2*fila - i][POS_J_INIC+columna] = COLOR_BLACK   
 
 
-def draw_square_contour(i: int, j: int, size: int, color: int, world: World):
+def draw_square_contour(i: int, j: int, size: int, color: int, world: list[list[int]]):
     for k in range(0, size):
         world[i + k][j] = color
         world[i + k][j + size - 1] = color
@@ -97,7 +101,7 @@ def draw_square_contour(i: int, j: int, size: int, color: int, world: World):
         world[i + size - 1][j + k] = color
 
 
-def draw_player(world: World):
+def draw_player(world: list[list[int]]):
     draw_square_contour(PLAYER_I, PLAYER_J, PLAYER_SIZE, COLOR_BLACK, world)
 
     draw_square_contour(PLAYER_I + 1, PLAYER_J + 1,
@@ -124,10 +128,8 @@ def move_player():
     pass
 
 
-def print_world(world: World):
-
-    for r, row in enumerate(world):
-        print(f'{r + 1:2} ', end='')
+def print_world(world: list[list[int]]):
+    for row in world:
         last_color = -1
 
         for i in row:
