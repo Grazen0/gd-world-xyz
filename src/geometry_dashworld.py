@@ -38,7 +38,99 @@ def player_sprite(size: int):
 
 
 def spike_sprite() -> list[list[int]]:
-    pass
+
+    STAIRS = 8
+    SPIK_INF_BASE = 15
+    # Matriz inicial
+    spike_matrix = [
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    ]
+    
+    for fila in range(0, STAIRS):
+        for columna in range(0, SPIK_INF_BASE):
+                for i in range(0, 2):
+                    # Bordes: Amarillo = 6
+                    if fila == columna or (fila + columna == 14):
+                        spike_matrix[SPIK_INF_BASE - 2*fila - i][columna] = 6
+                    # Interior: Negro = 2
+                    elif (columna > fila and columna < 8) or (fila + columna < 14 and columna >= 8):
+                        spike_matrix[SPIK_INF_BASE - 2*fila - i][columna] = 2
+                    # Afueras: Incoloro = 0
+                    else: 
+                        spike_matrix[SPIK_INF_BASE - 2*fila - i][columna] = 0
+    
+    return spike_matrix
+
+
+def poste_sprite():
+    # Todo es de color negro: indice = 2
+    # Solo para el chupetin será amarillo: indice = 6
+    # Igual que en el pincho, lo incoloro será 0
+
+    # Indice en fila de la base inferior:
+    BASE_INF = 15
+    # Indice en fila de base inferior del chupetin
+    BASE_INF_CHU = 6
+    # Indice en fila de la base superior del chupetin
+    BASE_SUP_CHU = 0
+    # Indice en columna del centro del chupetin:
+    CENT_CHU = 3
+    # No recuerdo qué significa, pero sirve para solo iterar hasta la mitad de lo que será el chupetín :v
+    LAMP_TOP_EXT = 3
+    poste_matrix = [
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0]
+                    ]
+    # Laterales de la base: Negro = 2 (Realmente no hace falta usar un for para esto pero igual lo hago :v)
+    for k in range(7):
+        if k == 2 or k == 4:
+            poste_matrix[BASE_INF][k] = 2
+    
+    #Columna central: 
+    for k in range(BASE_INF_CHU, BASE_INF+1):
+        poste_matrix[k][CENT_CHU] = 2
+
+    # Chupetin inferior:
+    for k in range(0, LAMP_TOP_EXT):
+            for l in range(0, k + 2):
+                # Mitad de abajo
+                poste_matrix[BASE_INF_CHU - k - 1 ][3 + l] = 6
+                poste_matrix[BASE_INF_CHU - k - 1][3 - l] = 6
+
+                # Mitad de arriba
+                poste_matrix[BASE_INF_CHU -2*LAMP_TOP_EXT + k][3 + l] = 6
+                poste_matrix[BASE_INF_CHU -2*LAMP_TOP_EXT + k][3 - l] = 6
+
+    return poste_matrix
 
 
 def draw_world(world: list[list[int]]):
@@ -46,7 +138,9 @@ def draw_world(world: list[list[int]]):
     for i in range(ROWS - FLOOR_HEIGHT, ROWS):
         world[i] = [COLOR_LIGHTWHITE] * COLUMNS
 
-    # Poste
+
+    # Poste:
+
     LAMP_TOP_EXT = 3
     LAMP_I = ROWS - FLOOR_HEIGHT - 1
     LAMP_J = 24
@@ -64,14 +158,16 @@ def draw_world(world: list[list[int]]):
     for k in range(0, LAMP_TOP_EXT):
         for l in range(0, k + 2):
             # Mitad de abajo
-            world[LAMP_TOP_BASE - k][LAMP_J + l] = COLOR_YELLOW
-            world[LAMP_TOP_BASE - k][LAMP_J - l] = COLOR_YELLOW
+            world[LAMP_TOP_BASE + k][LAMP_J + l] = COLOR_YELLOW
+            world[LAMP_TOP_BASE + k][LAMP_J - l] = COLOR_YELLOW
 
             # Mitad de arriba
             world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J + l] = COLOR_YELLOW
             world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J - l] = COLOR_YELLOW
 
-    # Pincho 
+
+    # Pincho:
+
     # Filas "únicas" = 8
     STAIRS = 8
     # Logitud inicial de la base del pincho
