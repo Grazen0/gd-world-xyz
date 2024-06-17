@@ -158,8 +158,8 @@ def draw_world(world: list[list[int]]):
     for k in range(0, LAMP_TOP_EXT):
         for l in range(0, k + 2):
             # Mitad de abajo
-            world[LAMP_TOP_BASE + k][LAMP_J + l] = COLOR_YELLOW
-            world[LAMP_TOP_BASE + k][LAMP_J - l] = COLOR_YELLOW
+            world[LAMP_TOP_BASE - k][LAMP_J + l] = COLOR_YELLOW
+            world[LAMP_TOP_BASE - k][LAMP_J - l] = COLOR_YELLOW
 
             # Mitad de arriba
             world[LAMP_TOP_BASE - 2 * LAMP_TOP_EXT + 1 + k][LAMP_J + l] = COLOR_YELLOW
