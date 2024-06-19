@@ -1,26 +1,19 @@
-import utils
+import matrix_utils
 import colors
-
-
-def draw_square_contour(i: int, j: int, size: int, color: int, world: list[list[int]]):
-    for k in range(0, size):
-        world[i + k][j] = color
-        world[i + k][j + size - 1] = color
-        world[i][j + k] = color
-        world[i + size - 1][j + k] = color
+import draw_utils
 
 
 def player_sprite() -> list[list[int]]:
-    sprite = utils.create_matrix(16, 16, colors.NONE)
+    sprite = matrix_utils.create_matrix(16, 16, colors.NONE)
 
-    draw_square_contour(0, 0, 16, colors.BLACK, sprite)
-    draw_square_contour(1, 1, 14, colors.GREEN, sprite)
-    draw_square_contour(2, 2, 12, colors.GREEN, sprite)
-    draw_square_contour(3, 3, 10, colors.BLACK, sprite)
-    draw_square_contour(4, 4, 8, colors.LIGHTBLUE, sprite)
-    draw_square_contour(5, 5, 6, colors.LIGHTBLUE, sprite)
-    draw_square_contour(6, 6, 4, colors.BLACK, sprite)
-    draw_square_contour(7, 7, 2, colors.GREEN, sprite)
+    draw_utils.draw_square_contour(0, 0, 16, colors.BLACK, sprite)
+    draw_utils.draw_square_contour(1, 1, 14, colors.GREEN, sprite)
+    draw_utils.draw_square_contour(2, 2, 12, colors.GREEN, sprite)
+    draw_utils.draw_square_contour(3, 3, 10, colors.BLACK, sprite)
+    draw_utils.draw_square_contour(4, 4, 8, colors.LIGHTBLUE, sprite)
+    draw_utils.draw_square_contour(5, 5, 6, colors.LIGHTBLUE, sprite)
+    draw_utils.draw_square_contour(6, 6, 4, colors.BLACK, sprite)
+    draw_utils.draw_square_contour(7, 7, 2, colors.GREEN, sprite)
 
     return sprite
 
@@ -28,7 +21,7 @@ def player_sprite() -> list[list[int]]:
 def spike_sprite() -> list[list[int]]:
     STAIRS = 8
     SPIK_INF_BASE = 15
-    sprite = utils.create_matrix(16, 15, 0)
+    sprite = matrix_utils.create_matrix(16, 15, 0)
 
     for fila in range(0, STAIRS):
         for columna in range(0, SPIK_INF_BASE):
@@ -57,7 +50,7 @@ def lamp_sprite():
     # No recuerdo qué significa, pero sirve para solo iterar hasta la mitad de lo que será el chupetín :v
     LAMP_TOP_EXT = 3
 
-    sprite = utils.create_matrix(16, 7, colors.NONE)
+    sprite = matrix_utils.create_matrix(16, 7, colors.NONE)
 
     # Laterales de la base: Negro = 2 (Realmente no hace falta usar un for para esto pero igual lo hago :v)
     for k in range(7):
