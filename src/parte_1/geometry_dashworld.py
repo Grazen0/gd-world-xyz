@@ -37,20 +37,17 @@ def draw_world(world: list[list[int]]):
         world[i] = [colors.LIGHTWHITE] * WORLD_COLUMNS
 
     # Poste
-    lamp = sprites.lamp_sprite()
-    draw_utils.draw_sprite(lamp,  WORLD_ROWS -
-                           FLOOR_HEIGHT - len(lamp), 24, world)
+    draw_utils.draw_sprite(sprites.lamp,  WORLD_ROWS -
+                           FLOOR_HEIGHT - len(sprites.lamp), 24, world)
 
     # Triángulo
-    spike = sprites.spike_sprite()
-    draw_utils.draw_sprite(spike, WORLD_ROWS -
-                           FLOOR_HEIGHT - len(spike), 33, world)
+    draw_utils.draw_sprite(sprites.spike, WORLD_ROWS -
+                           FLOOR_HEIGHT - len(sprites.spike), 33, world)
 
 
 def draw_player(world: list[list[int]]):
-    player = sprites.player_sprite()
-    draw_utils.draw_sprite(player, WORLD_ROWS -
-                           FLOOR_HEIGHT - len(player), 1, world)
+    draw_utils.draw_sprite(sprites.player, WORLD_ROWS -
+                           FLOOR_HEIGHT - len(sprites.player), 1, world)
 
 
 def move_player(game: dict, direction: str):
@@ -68,7 +65,7 @@ def print_game(game: dict):
     world_print = matrix_utils.copy_matrix(game['world'])
     player_pos = game['player_pos']
 
-    draw_utils.draw_sprite(sprites.player_sprite(),
+    draw_utils.draw_sprite(sprites.player,
                            player_pos[0], player_pos[1], world_print)
 
     for row in world_print:
