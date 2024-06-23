@@ -19,19 +19,33 @@ def player_sprite() -> list[list[int]]:
 
 
 def spike_sprite() -> list[list[int]]:
-    STAIRS = 8
-    SPIK_INF_BASE = 15
-    sprite = matrix_utils.create_matrix(16, 15, 0)
+    STEPS = 8
 
-    for fila in range(0, STAIRS):
-        for columna in range(0, SPIK_INF_BASE):
-            for i in range(0, 2):
-                if fila == columna or (fila + columna == 14):
-                    sprite[SPIK_INF_BASE - 2 *
-                           fila - i][columna] = colors.YELLOW
-                elif (columna > fila and columna < 8) or (fila + columna < 14 and columna >= 8):
-                    sprite[SPIK_INF_BASE - 2 *
-                           fila - i][columna] = colors.BLACK
+    sprite = matrix_utils.create_matrix(2 * STEPS, 2 * STEPS - 1, 0)
+    mid_column = len(sprite[0]) // 2
+
+    for i in range(0, STEPS):
+        row = 2 * i
+
+        # Borde
+
+        # Derecha
+        sprite[row][mid_column + i] = colors.YELLOW
+        sprite[row + 1][mid_column + i] = colors.YELLOW
+
+        # Izquierda
+        sprite[row][mid_column - i] = colors.YELLOW
+        sprite[row + 1][mid_column - i] = colors.YELLOW
+
+        # Relleno
+        for j in range(0, i):
+            # Derecha
+            sprite[row][mid_column + j] = colors.BLACK
+            sprite[row + 1][mid_column + j] = colors.BLACK
+
+            # Izquierda
+            sprite[row][mid_column - j] = colors.BLACK
+            sprite[row + 1][mid_column - j] = colors.BLACK
 
     return sprite
 
