@@ -75,3 +75,8 @@ def lamp_sprite():
                    LAMP_TOP_EXT + k][3 - l] = colors.YELLOW
 
     return sprite
+
+
+player = player_sprite()
+spike = spike_sprite()
+lamp = lamp_sprite()

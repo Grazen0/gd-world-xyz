@@ -13,7 +13,11 @@ while not done:
     redraw = True
 
     for command in commands:
-        if not initted:
+        if command == 'quit':
+            print('Bye bye!')
+            redraw = False
+            done = True
+        elif not initted:
             if command == 'init':
                 geometry_dashworld.init_game(game)
                 initted = True
@@ -33,10 +37,6 @@ while not done:
                 print()
 
                 geometry_dashworld.move_player(game, 'up_end')
-            elif command == 'quit':
-                print('Bye bye!')
-                redraw = False
-                done = True
             else:
                 print('Comando incorrecto')
                 redraw = False
