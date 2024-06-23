@@ -24,9 +24,9 @@ def draw_sprite(sprite: list[list[int]], pos_i: int, pos_j: int, target: list[li
                 target[target_i][target_j] = sprite[i][j]
 
 
-def draw_square_contour(i: int, j: int, size: int, color: int, world: list[list[int]]):
+def draw_square_contour(i: int, j: int, size: int, color: int, target: list[list[int]]):
     for k in range(0, size):
-        world[i + k][j] = color
-        world[i + k][j + size - 1] = color
-        world[i][j + k] = color
-        world[i + size - 1][j + k] = color
+        target[i + k][j] = color
+        target[i + k][j + size - 1] = color
+        target[i][j + k] = color
+        target[i + size - 1][j + k] = color
