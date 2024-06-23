@@ -21,7 +21,7 @@ def player_sprite() -> list[list[int]]:
 def spike_sprite() -> list[list[int]]:
     STEPS = 8
 
-    sprite = matrix_utils.create_matrix(2 * STEPS, 2 * STEPS - 1, 0)
+    sprite = matrix_utils.create_matrix(2 * STEPS, 2 * STEPS - 1, colors.NONE)
     mid_column = len(sprite[0]) // 2
 
     for i in range(0, STEPS):
@@ -66,10 +66,8 @@ def lamp_sprite():
 
     sprite = matrix_utils.create_matrix(16, 7, colors.NONE)
 
-    # Laterales de la base: Negro = 2 (Realmente no hace falta usar un for para esto pero igual lo hago :v)
-    for k in range(7):
-        if k == 2 or k == 4:
-            sprite[BASE_INF][k] = colors.BLACK
+    sprite[BASE_INF][2] = colors.BLACK
+    sprite[BASE_INF][4] = colors.BLACK
 
     # Columna central:
     for k in range(BASE_INF_CHU, BASE_INF+1):
