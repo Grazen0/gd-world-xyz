@@ -38,7 +38,7 @@ while not done:
 
                 geometry_dashworld.move_player(game, 'up_end')
             else:
-                print('Comando incorrecto')
+                print('Invalid command')
                 redraw = False
 
         if redraw:
