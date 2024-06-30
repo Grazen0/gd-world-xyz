@@ -1,6 +1,7 @@
 from colorama import Back
 import matrix_utils
 import draw_utils
+import vector_utils
 import sprites
 import colors
 
@@ -25,7 +26,7 @@ def create_game():
     return {
         'world': create_world(),
         'player_pos': [0, 0],
-        'player_direction': 'right',
+        'player_direction': vector_utils.DIRECTION_VECTORS['right'],
         'camera_pos': [0, 0],
     }
 
@@ -45,15 +46,32 @@ def draw_world(world: list[list[int]]):
         for j in range(0, FLOOR_WIDTH):
             world[FLOOR_TOP + i][j] = colors.FLOOR
 
-    # Poste
-    draw_utils.draw_sprite(sprites.lamp, FLOOR_TOP -
-                           len(sprites.lamp), 24, world)
+    # Postes
+    lamp_up = sprites.lamp
+    lamp_right = matrix_utils.rotate_matrix_right(sprites.lamp)
+    lamp_down = matrix_utils.flip_matrix_vertical(sprites.lamp)
 
-    # Triángulo
-    draw_utils.draw_sprite(sprites.spike, FLOOR_TOP -
-                           len(sprites.spike), 33, world)
-    draw_utils.draw_sprite(sprites.spike, FLOOR_TOP -
-                           len(sprites.spike), 97, world)
+    draw_utils.draw_sprite(lamp_up,
+                           FLOOR_TOP - len(sprites.lamp), 24, world)
+    draw_utils.draw_sprite(lamp_right, FLOOR_TOP + 8, FLOOR_WIDTH, world)
+    draw_utils.draw_sprite(lamp_down, FLOOR_TOP + FLOOR_HEIGHT, 50, world)
+    draw_utils.draw_sprite(lamp_down, FLOOR_TOP + FLOOR_HEIGHT, 3, world)
+
+    # Espinas
+    spike_up = sprites.spike
+    spike_right = matrix_utils.rotate_matrix_right(sprites.spike)
+    spike_down = matrix_utils.flip_matrix_vertical(sprites.spike)
+
+    draw_utils.draw_sprite(spike_up,
+                           FLOOR_TOP - len(sprites.spike), 33, world)
+    draw_utils.draw_sprite(spike_up,
+                           FLOOR_TOP - len(sprites.spike), 97, world)
+    draw_utils.draw_sprite(spike_right,
+                           FLOOR_TOP + FLOOR_HEIGHT - len(spike_right), FLOOR_WIDTH, world)
+    draw_utils.draw_sprite(spike_down,
+                           FLOOR_TOP + FLOOR_HEIGHT, 81, world)
+    draw_utils.draw_sprite(spike_down,
+                           FLOOR_TOP + FLOOR_HEIGHT, 17, world)
 
 
 def draw_player(world: list[list[int]]):
@@ -61,32 +79,9 @@ def draw_player(world: list[list[int]]):
                            FLOOR_HEIGHT - len(sprites.player), 1, world)
 
 
-DIRECTION_VECTORS = {
-    'down': (1, 0),
-    'up': (-1, 0),
-    'right': (0, 1),
-    'left': (0, -1),
-}
-
-ROTATIONS = {
-    'right': 'down',
-    'down': 'left',
-    'left': 'up',
-    'up': 'right',
-}
-
-
-def rotate_vector_left(vec: tuple[int, int]) -> tuple[int, int]:
-    return -vec[1], vec[0]
-
-
-def rotate_vector_right(vec: tuple[int, int]) -> tuple[int, int]:
-    return vec[1], -vec[0]
-
-
 def move_player(game: dict, direction: str):
-    relative_right = DIRECTION_VECTORS[game['player_direction']]
-    relative_up = rotate_vector_left(relative_right)
+    relative_right = game['player_direction']
+    relative_up = vector_utils.rotate_vector_left(relative_right)
 
     if direction == 'right':
         game['player_pos'][0] += 16 * relative_right[0]
@@ -110,15 +105,14 @@ def move_player(game: dict, direction: str):
 
 
 def update_player_orientation(game: dict):
-    floor_direction = rotate_vector_right(
-        DIRECTION_VECTORS[game['player_direction']])
+    floor_direction = vector_utils.rotate_vector_right(
+        game['player_direction'])
 
     check_i = game['player_pos'][0] + PLAYER_SIZE * floor_direction[0]
     check_j = game['player_pos'][1] + PLAYER_SIZE * floor_direction[1]
 
     if game['world'][check_i][check_j] != colors.FLOOR:
-        game['player_direction'] = ROTATIONS[game['player_direction']]
-        print('New direction:', game['player_direction'])
+        game['player_direction'] = floor_direction
 
 
 def update_camera_position(game: dict):

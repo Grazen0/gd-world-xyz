@@ -6,7 +6,7 @@ def copy_matrix(matrix: list[list[int]]) -> list[list[int]]:
     return [row.copy() for row in matrix]
 
 
-def rotate_matrix(matrix: list[list[int]]) -> list[list[int]]:
+def rotate_matrix_right(matrix: list[list[int]]) -> list[list[int]]:
     rows = len(matrix)
     columns = len(matrix[0])
     return [[matrix[rows - 1 - j][i] for j in range(0, rows)] for i in range(0, columns)]
