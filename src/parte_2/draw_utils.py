@@ -1,4 +1,5 @@
 import colors
+import matrix_utils
 
 
 def draw_sprite(sprite: list[list[int]], pos_i: int, pos_j: int, target: list[list[int]]):
@@ -22,6 +23,17 @@ def draw_sprite(sprite: list[list[int]], pos_i: int, pos_j: int, target: list[li
 
             if sprite[i][j] != colors.NONE:
                 target[target_i][target_j] = sprite[i][j]
+
+
+def mask_sprite(sprite: list[list[int]], mask_color: int) -> list[list[int]]:
+    result = matrix_utils.copy_matrix(sprite)
+
+    for i in range(0, len(sprite)):
+        for j in range(0, len(sprite[i])):
+            if sprite[i][j] != colors.NONE:
+                result[i][j] = mask_color
+
+    return result
 
 
 def draw_square_contour(i: int, j: int, size: int, color: int, target: list[list[int]]):

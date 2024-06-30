@@ -1,4 +1,6 @@
 import geometry_dashworld
+import draw_utils
+import colors
 
 print('Welcome to the world of Geometry Dash World XYZ')
 
@@ -15,10 +17,9 @@ while not done:
     for command in commands:
         if command == 'quit' or command == 'q':
             print('Bye bye!')
+            redraw = False
             done = True
-            break
-
-        if not initted:
+        elif not initted:
             if command == 'init' or command == 'i':
                 geometry_dashworld.init_game(game)
                 initted = True
@@ -26,21 +27,38 @@ while not done:
                 print('Run "init" before playing')
                 redraw = False
         else:
+            collision = None
+
             if command == 'init' or command == 'i':
                 print('Game is already initialized')
                 redraw = False
             elif command == 'right' or command == 'r':
-                geometry_dashworld.move_player(game, 'right')
+                collision = geometry_dashworld.move_player(game, 'right')
             elif command == 'up' or command == 'u':
                 geometry_dashworld.move_player(game, 'up_begin')
 
                 geometry_dashworld.print_game(game)
                 print()
 
-                geometry_dashworld.move_player(game, 'up_end')
+                collision = geometry_dashworld.move_player(game, 'up_end')
             else:
                 print('Invalid command')
                 redraw = False
+
+            if collision != None:
+                # Chocó con una espina. Perder juego
+                # Redibujar al obstáculo chocado, pero todo en amarillo
+                draw_utils.draw_sprite(
+                    draw_utils.mask_sprite(collision['sprite'], colors.YELLOW),
+                    collision['pos'][0],
+                    collision['pos'][1],
+                    game['world']
+                )
+
+                geometry_dashworld.print_game(game)
+                print('Game over')
+                redraw = False
+                done = True
 
         if redraw:
             geometry_dashworld.print_game(game)
@@ -48,4 +66,6 @@ while not done:
         if geometry_dashworld.has_game_won(game):
             print('You win!')
             done = True
+
+        if done:
             break
