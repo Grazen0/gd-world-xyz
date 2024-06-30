@@ -15,9 +15,10 @@ while not done:
     for command in commands:
         if command == 'quit' or command == 'q':
             print('Bye bye!')
-            redraw = False
             done = True
-        elif not initted:
+            break
+
+        if not initted:
             if command == 'init' or command == 'i':
                 geometry_dashworld.init_game(game)
                 initted = True
@@ -43,3 +44,8 @@ while not done:
 
         if redraw:
             geometry_dashworld.print_game(game)
+
+        if geometry_dashworld.has_game_won(game):
+            print('You win!')
+            done = True
+            break

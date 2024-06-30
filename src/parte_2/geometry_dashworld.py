@@ -151,6 +151,10 @@ def update_camera_position(game: dict):
         game['camera_pos'][1] = WORLD_COLUMNS - CAMERA_COLUMNS
 
 
+def has_game_won(game: dict) -> bool:
+    return game['player_pos'][1] <= 1 - PLAYER_SIZE
+
+
 def print_game(game: dict):
     world_print = matrix_utils.copy_matrix(game['world'])
     player_i, player_j = game['player_pos']
