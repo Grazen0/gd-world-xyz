@@ -15,12 +15,12 @@ while not done:
     redraw = True
 
     for command in commands:
-        if command == 'quit' or command == 'q':
+        if command == 'quit':
             print('Bye bye!')
             redraw = False
             done = True
         elif not initted:
-            if command == 'init' or command == 'i':
+            if command == 'init':
                 geometry_dashworld.init_game(game)
                 initted = True
             else:
@@ -29,12 +29,12 @@ while not done:
         else:
             collision = None
 
-            if command == 'init' or command == 'i':
+            if command == 'init':
                 print('Game is already initialized')
                 redraw = False
-            elif command == 'right' or command == 'r':
+            elif command == 'right':
                 collision = geometry_dashworld.move_player(game, 'right')
-            elif command == 'up' or command == 'u':
+            elif command == 'up':
                 geometry_dashworld.move_player(game, 'up_begin')
 
                 geometry_dashworld.print_game(game)
