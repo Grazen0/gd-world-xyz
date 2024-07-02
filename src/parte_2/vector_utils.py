@@ -1,4 +1,3 @@
-
 DIRECTION_VECTORS = {
     'down': (1, 0),
     'up': (-1, 0),
