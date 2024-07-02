@@ -27,7 +27,7 @@ def create_game():
     return {
         'world': create_world(),
         'player_pos': [0, 0],
-        'player_direction': vector_utils.DIRECTION_VECTORS['right'],
+        'player_direction': (0, 1),
         'camera_pos': [0, 0],
         'spikes': []
     }
