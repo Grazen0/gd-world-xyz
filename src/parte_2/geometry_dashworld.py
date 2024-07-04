@@ -79,7 +79,7 @@ def draw_world(game: dict):
     insert_spike(spike_right, FLOOR_TOP + FLOOR_HEIGHT -
                  len(spike_right), FLOOR_WIDTH, game)
     insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 81, game)
-    insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 17, game)
+    insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 33, game)
 
 
 def draw_player(world: list[list[int]]):
