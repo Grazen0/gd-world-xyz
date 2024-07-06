@@ -7,14 +7,14 @@ import sprites
 import colors
 
 
-WORLD_ROWS = 112
+WORLD_ROWS = 108
 WORLD_COLUMNS = 156
 
 CAMERA_ROWS = 56
 CAMERA_COLUMNS = 78
 CAMERA_MARGIN = 13
 
-FLOOR_TOP = 44
+FLOOR_TOP = 39
 FLOOR_HEIGHT = 32
 FLOOR_WIDTH = 113
 
@@ -60,13 +60,14 @@ def draw_world(game: dict):
 
     # Postes
     lamp_up = sprites.lamp
+    print(len(lamp_up))
     lamp_right = matrix_utils.rotate_matrix_right(sprites.lamp)
     lamp_down = matrix_utils.flip_matrix_vertical(sprites.lamp)
 
     draw_utils.draw_sprite(lamp_up,
                            FLOOR_TOP - len(sprites.lamp), 24, world)
-    draw_utils.draw_sprite(lamp_right, FLOOR_TOP + 8, FLOOR_WIDTH, world)
-    draw_utils.draw_sprite(lamp_down, FLOOR_TOP + FLOOR_HEIGHT, 50, world)
+    draw_utils.draw_sprite(lamp_right, 44, FLOOR_WIDTH, world)
+    draw_utils.draw_sprite(lamp_down, FLOOR_TOP + FLOOR_HEIGHT, 54, world)
     draw_utils.draw_sprite(lamp_down, FLOOR_TOP + FLOOR_HEIGHT, 3, world)
 
     # Espinas
@@ -78,8 +79,8 @@ def draw_world(game: dict):
     insert_spike(spike_up, FLOOR_TOP - len(spike_up), 97, game)
     insert_spike(spike_right, FLOOR_TOP + FLOOR_HEIGHT -
                  len(spike_right), FLOOR_WIDTH, game)
-    insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 81, game)
-    insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 33, game)
+    insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 82, game)
+    insert_spike(spike_down, FLOOR_TOP + FLOOR_HEIGHT, 34, game)
 
 
 def draw_player(world: list[list[int]]):
